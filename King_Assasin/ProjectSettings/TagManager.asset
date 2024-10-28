@@ -13,6 +13,7 @@ TagManager:
   - Volumes
   - FreeCamVolume
   - Mush
+  - pickuptext
   layers:
   - Default
   - TransparentFX

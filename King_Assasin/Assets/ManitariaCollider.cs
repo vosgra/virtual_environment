@@ -4,6 +4,7 @@ namespace Unity.FantasyKingdom
 {
     public class ManitariaCollider : MonoBehaviour
     {
+        public GameObject textObject;
         private bool isPlayerInRange = false;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -18,9 +19,19 @@ namespace Unity.FantasyKingdom
             {
                 // Make the object disappear
                 gameObject.SetActive(false);
+
+            }
+            if (isPlayerInRange)
+            {
+
+                textObject.SetActive(true);
+
+            }
+            else
+            {
+                textObject.SetActive(false);
             }
         }
-
         private void OnTriggerEnter(Collider other) {
 
             if (other.CompareTag("Player"))
@@ -28,6 +39,7 @@ namespace Unity.FantasyKingdom
                 isPlayerInRange = true;
                 
             }
+            
 
         }
         private void OnTriggerStay(Collider other)
@@ -40,6 +52,7 @@ namespace Unity.FantasyKingdom
             {
                 isPlayerInRange = false;
             }
+           
         }
     }
 }
