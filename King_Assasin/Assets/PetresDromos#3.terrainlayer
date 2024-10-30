@@ -9,7 +9,7 @@ TerrainLayer:
   m_Name: PetresDromos#3
   m_DiffuseTexture: {fileID: 2800000, guid: 95df285df9fa7c242abad5de00fae11e, type: 3}
   m_NormalMapTexture: {fileID: 2800000, guid: 43c1a8f42bd5f5940afbc57710d22d95, type: 3}
-  m_MaskMapTexture: {fileID: 2800000, guid: 5c19ae6f262302a45be1ac1020b69ef7, type: 3}
+  m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 2, y: 2}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
