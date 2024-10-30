@@ -9,7 +9,7 @@ TerrainLayer:
   m_Name: XomaAxura
   m_DiffuseTexture: {fileID: 2800000, guid: fcc71486c2ca23f46869dabed974a7b4, type: 3}
   m_NormalMapTexture: {fileID: 2800000, guid: 1208a939c763b334583fbddf71cde4d8, type: 3}
-  m_MaskMapTexture: {fileID: 2800000, guid: 760681b0a52f2b14988780b057f60bbb, type: 3}
+  m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 2, y: 2}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}

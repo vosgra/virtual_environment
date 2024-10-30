@@ -8,7 +8,7 @@ TerrainLayer:
   m_PrefabAsset: {fileID: 0}
   m_Name: PetresDromos#2
   m_DiffuseTexture: {fileID: 2800000, guid: 5c4a5ab6e54f6b34cb32586db04e4207, type: 3}
-  m_NormalMapTexture: {fileID: 0}
+  m_NormalMapTexture: {fileID: 2800000, guid: 740cbf670712f3e40a7d4ce510809504, type: 3}
   m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 2, y: 2}
   m_TileOffset: {x: 0, y: 0}
