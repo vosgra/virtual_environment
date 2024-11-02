@@ -744,8 +744,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -106.74, y: -64}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -175.80609, y: -92.232}
+  m_SizeDelta: {x: 151.7054, y: 151.73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &79823549
 MonoBehaviour:
@@ -969,8 +969,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 690.6, y: 445.4808}
-  m_SizeDelta: {x: 233.826, y: 168.187}
+  m_AnchoredPosition: {x: 784.9, y: 447.6}
+  m_SizeDelta: {x: 259.6371, y: 129.2546}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &97169452
 MonoBehaviour:
@@ -985,7 +985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.97976243, g: 1, b: 0.7877358, a: 1}
+  m_Color: {r: 0.97976243, g: 1, b: 0.7877358, a: 0.5803922}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -994,11 +994,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
-    m_FontSize: 29
+    m_FontSize: 55
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 1
-    m_MaxSize: 40
+    m_MaxSize: 80
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1026,7 +1026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181bf759d53f9cd48ba9416a48bf0122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mushroomcounter: {fileID: 0}
+  mushroomcounter: {fileID: 1569673038}
   text: {fileID: 97169452}
 --- !u!1 &102747830 stripped
 GameObject:
