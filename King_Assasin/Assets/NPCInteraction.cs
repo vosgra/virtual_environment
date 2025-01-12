@@ -1,18 +1,28 @@
 using UnityEngine;
 
-public class NPCInteraction : MonoBehaviour
+public class NPCAnimationTrigger : MonoBehaviour
 {
-    public Animator npcAnimator;  // Reference to the NPC's Animator
-    public string triggerName = "StandUpTrigger"; // The name of the trigger in the Animator
+    // Reference to the Animator component of the NPC
+    public Animator npcAnimator;
 
-    // This function is called when the player collides with the NPC
-    private void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        // Check if the collision is with the player
-        if (collision.gameObject.CompareTag("Player"))
+        // Check if the object entering the collider is the player
+        if (other.CompareTag("Player"))
         {
-            // Trigger the animation transition to standing idle
-            npcAnimator.SetTrigger(triggerName);
+            // Set the Animator booleans
+            npcAnimator.SetBool("IsSitting", false);
+            npcAnimator.SetBool("IsIdle", true);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        // Optional: Reset to sitting state when the player exits
+        if (other.CompareTag("Player"))
+        {
+            npcAnimator.SetBool("IsSitting", true);
+            npcAnimator.SetBool("IsIdle", false);
         }
     }
 }
