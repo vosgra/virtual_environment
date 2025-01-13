@@ -18,12 +18,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - WalkableTerrain
   - Water
   - UI
   - NPC
   - Ground
-  - 
+  - Buildings
   - 
   - RaycastOnly
   - 
