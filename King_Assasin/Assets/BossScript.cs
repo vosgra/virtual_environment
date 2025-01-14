@@ -148,10 +148,9 @@ public class NPCMovement : MonoBehaviour
         Debug.Log("NPC is talking again...");
         yield return new WaitForSeconds(5f);
 
-        // Finish sequence and move to the next waypoint
-        animator.SetBool("IsTalking", false);
-        animator.SetBool("IsIdle", false);
-        animator.SetBool("IsWalking", true);
+        // Finish sequence and move to the next waypoint (walking transition is triggered here)
+        animator.SetBool("IsTalking", false); // Reset talking
+        animator.SetBool("IsWalking", true);  // Trigger walking to next waypoint
         Debug.Log("NPC finished special idle sequence and is walking to the next waypoint.");
         isIdle = false;
         currentWaypointIndex++;
