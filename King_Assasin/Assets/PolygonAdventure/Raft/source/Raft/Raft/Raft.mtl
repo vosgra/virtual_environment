@@ -1,0 +1,42 @@
+newmtl acmat_0
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd 360_F_79590979_jKzEBLTXZQXgObOyDXBFxqm62qDrPlHz.jpg
+newmtl acmat_1
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd 884e6e99e40ea655fad1bbf015494062.jpg
+newmtl acmat_2
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd 2022-09-05_133638.jpg
+newmtl acmat_3
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd 2022-08-01_165759.jpg
+newmtl acmat_4
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd BOISINT3.jpg
+newmtl acmat_5
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd 87c12ec23d483ebeebe83279af05d359.jpg

@@ -1,131 +1,97 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class NPCShopScene : MonoBehaviour
 {
-    public enum NPCState { IsLaying, IsTalking, IsWalking, IsPointing }
-    public NPCState currentState = NPCState.IsLaying;
+    public enum NPCState { IsSitting, IsTalking }
+    public NPCState currentState = NPCState.IsSitting;
 
-    public Transform player;
+    public Animator animator;
     public float interactionDistance = 2f;
     public KeyCode interactKey = KeyCode.E;
 
-    public Transform[] walkRoute;
-    public Animator animator;
-    public NavMeshAgent navAgent;
+    private Transform player;
+    private bool isPlayerInRange = false;
 
-    private Vector3 startPosition;
-    private Quaternion startRotation;
+    public GameObject objectToTeleport; // The object to teleport
+    public Transform teleportTarget;   // The target position to teleport to
+
+    private bool movementDisabled = false; // To track if movement is disabled
 
     void Start()
     {
-        startPosition = transform.position;
-        startRotation = transform.rotation;
-        SetState(NPCState.IsLaying);
+        // Find the player in the scene
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        // Set the default state to sitting
+        SetState(NPCState.IsSitting);
     }
 
     void Update()
     {
-        switch (currentState)
+        if (isPlayerInRange && Input.GetKeyDown(interactKey))
         {
-            case NPCState.IsLaying:
-                HandleLayingState();
-                break;
-            case NPCState.IsTalking:
-                HandleTalkingState();
-                break;
-            case NPCState.IsWalking:
-                HandleWalkingState();
-                break;
-            case NPCState.IsPointing:
-                // Pointing handled in coroutine
-                break;
+            StartCoroutine(DelayedTransitionToTalking());
+            TeleportObject();
+            StartCoroutine(DisableMovementForDuration(16f));
         }
     }
 
-    void HandleLayingState()
+    private void OnTriggerEnter(Collider other)
     {
-        if (Vector3.Distance(player.position, transform.position) <= interactionDistance && Input.GetKeyDown(interactKey))
+        if (other.CompareTag("Player"))
         {
-            StartCoroutine(TalkingState());
+            isPlayerInRange = true;
         }
     }
 
-    void HandleTalkingState()
+    private void OnTriggerExit(Collider other)
     {
-        // Rotate to face the player
-        Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInRange = false;
+        }
     }
 
-    IEnumerator TalkingState()
+    IEnumerator DelayedTransitionToTalking()
     {
+        // Wait for 8 seconds before transitioning to Talking state
+        yield return new WaitForSeconds(8f);
+
+        // Start Talking State
         SetState(NPCState.IsTalking);
 
-        yield return new WaitForSeconds(5f);
-
-        StartCoroutine(WalkingState());
-    }
-
-    IEnumerator WalkingState()
-    {
-        SetState(NPCState.IsWalking);
-
-        foreach (Transform waypoint in walkRoute)
-        {
-            navAgent.SetDestination(waypoint.position);
-            while (Vector3.Distance(transform.position, waypoint.position) > navAgent.stoppingDistance)
-            {
-                yield return null;
-            }
-        }
-
-        StartCoroutine(PointingState());
-    }
-
-    IEnumerator PointingState()
-    {
-        SetState(NPCState.IsPointing);
-
+        // Wait for 4 seconds in Talking state
         yield return new WaitForSeconds(4f);
 
-        StartCoroutine(ReturnToLayingState());
+        // Return to Sitting State
+        SetState(NPCState.IsSitting);
     }
 
-    IEnumerator ReturnToLayingState()
+    void TeleportObject()
     {
-        SetState(NPCState.IsWalking);
-
-        navAgent.SetDestination(startPosition);
-        while (Vector3.Distance(transform.position, startPosition) > navAgent.stoppingDistance)
+        if (objectToTeleport != null && teleportTarget != null)
         {
-            yield return null;
+            objectToTeleport.transform.position = teleportTarget.position;
         }
-
-        transform.rotation = startRotation;
-        SetState(NPCState.IsLaying);
     }
 
-    void HandleWalkingState()
+    IEnumerator DisableMovementForDuration(float duration)
     {
-        animator.SetBool("IsWalking", true);
+        movementDisabled = true;
+        yield return new WaitForSeconds(duration);
+        movementDisabled = false;
     }
+
+    
+
+    
 
     void SetState(NPCState newState)
     {
         currentState = newState;
 
-        animator.SetBool("IsLaying", currentState == NPCState.IsLaying);
-        animator.SetBool("IsTalking", currentState == NPCState.IsTalking);
-        animator.SetBool("IsWalking", currentState == NPCState.IsWalking);
-        animator.SetBool("IsPointing", currentState == NPCState.IsPointing);
-
-        if (currentState != NPCState.IsWalking)
-        {
-            navAgent.ResetPath();
-        }
+        animator.SetBool("IsSitting", currentState == NPCState.IsSitting);
+        animator.SetBool("IsIdle", currentState == NPCState.IsTalking);
     }
 }

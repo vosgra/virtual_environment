@@ -19,6 +19,10 @@ public class NPCBehavior : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion startRotation;
 
+    // New fields for teleport functionality
+    public Transform teleportTarget; // The target game object to teleport to
+    public GameObject objectToTeleport; // The object to teleport
+
     void Start()
     {
         startPosition = transform.position;
@@ -28,6 +32,7 @@ public class NPCBehavior : MonoBehaviour
 
     void Update()
     {
+        // Handle state-based behaviors
         switch (currentState)
         {
             case NPCState.IsLaying:
@@ -42,6 +47,12 @@ public class NPCBehavior : MonoBehaviour
             case NPCState.IsPointing:
                 // Pointing handled in coroutine
                 break;
+        }
+
+        // Check for teleport input
+        if (Input.GetKeyDown(interactKey))
+        {
+            TeleportObject();
         }
     }
 
@@ -126,6 +137,20 @@ public class NPCBehavior : MonoBehaviour
         if (currentState != NPCState.IsWalking)
         {
             navAgent.ResetPath();
+        }
+    }
+
+    void TeleportObject()
+    {
+        if (teleportTarget != null && objectToTeleport != null && Vector3.Distance(player.position, transform.position) <= interactionDistance)
+        {
+            objectToTeleport.transform.position = teleportTarget.position;
+            objectToTeleport.transform.rotation = teleportTarget.rotation;
+            Debug.Log("Object teleported to target location.");
+        }
+        else
+        {
+            Debug.LogWarning("Teleport target or object to teleport is not set.");
         }
     }
 }
