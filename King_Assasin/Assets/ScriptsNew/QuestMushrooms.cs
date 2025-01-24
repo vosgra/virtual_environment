@@ -1,34 +1,61 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Unity.FantasyKingdom
 {
-    public class QuestMushrooms : MonoBehaviour
+    public class MushroomCounter1 : MonoBehaviour
     {
-        public MushroomCounter mushroomcounter; // Reference to the MushroomCounter script
-        public Text text;
+        public int mushroomcounter = 0;
+        public GameObject mush1;
+        public GameObject mush2;
+        public GameObject mush3;
+        public GameObject mush4;
+        public GameObject mush5;
+        bool mush1counter = true;
+        bool mush2counter = true;
+        bool mush3counter = true;
+        bool mush4counter = true;
+        bool mush5counter = true;
 
+
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            // Ensure that mushroomcounter is assigned, either in the Inspector or dynamically
-            if (mushroomcounter == null)
-            {
-                mushroomcounter = FindObjectOfType<MushroomCounter>(); // Finds MushroomCounter in the scene
-            }
+
         }
 
+        // Update is called once per frame
         void Update()
         {
-            // Access the mushroomcounter value from the MushroomCounter script
-            text.text = "Mushrooms\nCollected:\n" + mushroomcounter.mushroomcounter + "/5";
-            if (mushroomcounter.mushroomcounter >= 5)
+
+
+
+            if (!mush1.activeInHierarchy && mush1counter)
             {
-                text.color = Color.green; // Set color to green if all mushrooms are collected
+
+                mushroomcounter = mushroomcounter + 1;
+                mush1counter = false;
             }
-            else
+            if (!mush2.activeInHierarchy && mush2counter)
             {
-                text.color = Color.red; // Set color to red if not all mushrooms are collected
+                mushroomcounter = mushroomcounter + 1;
+                mush2counter = false;
             }
+            if (!mush3.activeInHierarchy && mush3counter)
+            {
+                mushroomcounter = mushroomcounter + 1;
+                mush3counter = false;
+            }
+            if (!mush4.activeInHierarchy && mush4counter)
+            {
+                mushroomcounter = mushroomcounter + 1;
+                mush4counter = false;
+            }
+            if (!mush5.activeInHierarchy && mush5counter)
+            {
+                mushroomcounter = mushroomcounter + 1;
+                mush5counter = false;
+            }
+
         }
     }
 }

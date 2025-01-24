@@ -15,6 +15,9 @@ TagManager:
   - Mush
   - pickuptext
   - The Boss
+  - RedMush
+  - BrownMush
+  - PurpleMush
   layers:
   - Default
   - TransparentFX
