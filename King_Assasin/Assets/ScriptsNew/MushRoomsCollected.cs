@@ -14,6 +14,7 @@ namespace Unity.FantasyKingdom
 
         public GameObject objectToDisable; // GameObject to disable when condition is met
         public GameObject objectToEnable; // GameObject to enable when condition is met
+        public GameObject DisableRecipe;
 
         // Start is called before the first execution of Update
         void Start()
@@ -66,7 +67,7 @@ namespace Unity.FantasyKingdom
         // Check if the required mushrooms have been collected
         private void CheckMushroomCollection()
         {
-            if (redMushroomCounter >= 2 && brownMushroomCounter >= 2 && purpleMushroomCounter >= 1)
+            if (redMushroomCounter >= 2 && brownMushroomCounter >= 2 && purpleMushroomCounter >= 1 && DisableRecipe.activeInHierarchy)
             {
                 if (objectToDisable != null)
                 {
