@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class NPCInteraction : MonoBehaviour
 {
-    public GameObject objectToActivate;  // The GameObject to activate
+    public GameObject objectToActivate;  // The first GameObject to activate
+    public GameObject secondObjectToActivate; // The second GameObject to activate
     public Transform teleportLocation;  // The location to teleport the player
     public GameObject playerGameObject; // The root Player GameObject to disable
     public string npcIdentifier;        // Unique identifier for this NPC
@@ -16,10 +17,16 @@ public class NPCInteraction : MonoBehaviour
         // Check for player input if near the correct NPC
         if (isNearNPC && Input.GetKeyDown(KeyCode.E))
         {
-            // Activate the GameObject when E is pressed
+            // Activate the first GameObject when E is pressed
             if (objectToActivate != null)
             {
                 objectToActivate.SetActive(true);
+            }
+
+            // Activate the second GameObject when E is pressed
+            if (secondObjectToActivate != null)
+            {
+                secondObjectToActivate.SetActive(true);
             }
 
             // Teleport the player
@@ -65,7 +72,7 @@ public class NPCInteraction : MonoBehaviour
     private System.Collections.IEnumerator DisableGameObjectTemporarily()
     {
         playerGameObject.SetActive(false); // Disable the entire GameObject
-        yield return new WaitForSeconds(54); // Wait for 120 seconds (or any desired time)
+        yield return new WaitForSeconds(54); // Wait for 54 seconds (or any desired time)
         playerGameObject.SetActive(true); // Re-enable the GameObject
     }
 }
