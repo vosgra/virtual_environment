@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class NPCMovement : MonoBehaviour
 {
+    
     [Header("Movement Settings")]
     public Transform[] waypoints; // Default waypoints for the NPC
     public Transform[] alternateWaypoints; // Alternate waypoints for the NPC
@@ -13,7 +14,7 @@ public class NPCMovement : MonoBehaviour
     public float idleDuration = 30f; // Idle duration at each waypoint (main path)
     public float firstWaypointIdleDuration = 5f; // Idle duration at the first waypoint (main path)
     public float alternatePathSpecialIdleDuration = 10f; // Idle duration at the 5th waypoint (alternate path)
-
+  
     private int currentWaypointIndex = 0; // Current waypoint index
     private bool canInteract = false; // Whether the player can interact with the NPC
     private bool useAlternatePath = false; // Whether the NPC should follow the alternate path
