@@ -4,6 +4,7 @@ using UnityEngine;
 public class ActivateAfter5Sec : MonoBehaviour
 {
     public GameObject objectToActivate; // Assign the object in the Inspector
+    public float delayTime = 5f; // Editable in Inspector with 5 second default
     private bool isPlayerInTrigger = false;
 
     void OnTriggerEnter(Collider other)
@@ -26,7 +27,6 @@ public class ActivateAfter5Sec : MonoBehaviour
 
     void Update()
     {
-        // Check if the player is in the trigger and presses the "E" key
         if (isPlayerInTrigger && Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("E pressed, starting delay...");
@@ -36,14 +36,12 @@ public class ActivateAfter5Sec : MonoBehaviour
 
     IEnumerator ActivateAfterDelay()
     {
-        // Wait for 5 seconds
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(delayTime); // Use the public variable
 
-        // Activate the object
         if (objectToActivate != null)
         {
             objectToActivate.SetActive(true);
-            Debug.Log("Object activated after 5 seconds.");
+            Debug.Log("Object activated after " + delayTime + " seconds.");
         }
         else
         {

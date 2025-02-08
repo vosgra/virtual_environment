@@ -10,7 +10,7 @@ public class RecipeManager : MonoBehaviour
     public KeyCode toggleKey = KeyCode.J; // Key to toggle recipe position
     public Transform sidePosition; // Assign the side position Transform in the Inspector
     public Transform middlePosition; // Assign the middle position Transform in the Inspector
-
+    public int timetowait;
     private bool isPlayerInRange = false; // Tracks if player is in NPC collider
     private bool isRecipeAcquired = false; // Tracks if the recipe has been acquired
     private bool isRecipeAtMiddle = true; // Tracks recipe position
@@ -32,7 +32,7 @@ public class RecipeManager : MonoBehaviour
     {
         if (isPlayerInRange && !isRecipeAcquired && Input.GetKeyDown(interactKey))
         {
-            StartCoroutine(AcquireRecipeAfterDelay(12f));
+            StartCoroutine(AcquireRecipeAfterDelay(timetowait));
         }
 
         if (isRecipeAcquired && Input.GetKeyDown(toggleKey))

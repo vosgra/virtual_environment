@@ -14,6 +14,7 @@ public class NPCInteractionww : MonoBehaviour
     private bool playerInRange = false;
     private bool isActivated = false;
     private bool alreadyActivated = false;
+    public int timetowait;
 
     void Update()
     {
@@ -33,7 +34,7 @@ public class NPCInteractionww : MonoBehaviour
         targetObject.SetActive(true);
 
         // Wait for 3 seconds
-        yield return new WaitForSeconds(9f);
+        yield return new WaitForSeconds(timetowait);
 
         // Move the object to the waypoint
         while (Vector3.Distance(targetObject.transform.position, waypoint.position) > 0.1f)
