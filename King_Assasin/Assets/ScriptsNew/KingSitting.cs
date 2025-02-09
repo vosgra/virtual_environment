@@ -20,9 +20,12 @@ public class KingSitting : MonoBehaviour
     public Transform DyingWaypoint;
     public Vector3 dyingRotation;
     public float dyingMoveDuration = 2f;
-
+    public int sittingTime;
     private Vector3 npcStartingPosition;
     private Quaternion npcStartingRotation;
+
+    [Header("Check Object Settings")]
+    public GameObject checkObject;
 
     void OnEnable()
     {
@@ -42,20 +45,26 @@ public class KingSitting : MonoBehaviour
         isPerformingAction = true;
 
         animator.SetBool("IsSitting", true);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(sittingTime);
 
         animator.SetBool("IsSitting", false);
         animator.SetBool("IsDrinking", true);
         yield return new WaitForSeconds(0.3f);
 
         StartCoroutine(MoveBowlSequence());
-
         yield return new WaitForSeconds(3f);
 
-        animator.SetTrigger("IsDying");
-        animator.SetBool("IsDrinking", false);
-
-        StartCoroutine(MoveDuringDying());
+        if (checkObject != null && checkObject.activeInHierarchy)
+        {
+            animator.SetTrigger("IsDying");
+            animator.SetBool("IsDrinking", false);
+            StartCoroutine(MoveDuringDying());
+        }
+        else
+        {
+            animator.SetBool("IsDrinking", false);
+            animator.SetBool("IsSitting", true);
+        }
 
         isPerformingAction = false;
     }
