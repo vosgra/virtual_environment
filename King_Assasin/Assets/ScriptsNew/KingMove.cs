@@ -10,8 +10,8 @@ public class NPCWaypointWalker : MonoBehaviour
     public float stoppingDistance = 0.5f;
     public float specialStoppingDistance = 2.0f;
     public GameObject objectToEnable; // Object to enable after death sequence
-    public GameObject objectToDisableOnArrival; // New field for object to disable on arrival
-    public GameObject objectToEnableOnArrival; // New field for object to enable on arrival
+    public GameObject objectToDisableOnArrival;
+    public GameObject objectToEnableOnArrival;
 
     private NavMeshAgent agent;
     private Animator animator;
@@ -32,21 +32,22 @@ public class NPCWaypointWalker : MonoBehaviour
 
     void Update()
     {
+        // If the special object is enabled, immediately go to the special waypoint
+        if (!specialSequenceTriggered && specialObject.activeSelf)
+        {
+            TriggerSpecialSequence();
+        }
+
+        // Check if the NPC has reached the special waypoint and perform actions
         if (specialSequenceTriggered && !specialActionsPerformed &&
             Vector3.Distance(transform.position, specialWaypoint.position) <= specialStoppingDistance)
         {
             PerformSpecialActions();
         }
-        else if (agent.remainingDistance <= stoppingDistance && !agent.pathPending && !specialSequenceTriggered)
+        // Follow waypoints normally if special sequence is not triggered
+        else if (!specialSequenceTriggered && agent.remainingDistance <= stoppingDistance && !agent.pathPending)
         {
-            if (specialObject.activeSelf && currentWaypointIndex == 0)
-            {
-                TriggerSpecialSequence();
-            }
-            else
-            {
-                MoveToNextWaypoint();
-            }
+            MoveToNextWaypoint();
         }
 
         animator.SetBool("IsWalking", agent.velocity.magnitude > 0.1f);
@@ -54,7 +55,7 @@ public class NPCWaypointWalker : MonoBehaviour
 
     void MoveToNextWaypoint()
     {
-        if (waypoints.Length == 0)
+        if (waypoints.Length == 0 || specialSequenceTriggered)
             return;
 
         agent.destination = waypoints[currentWaypointIndex].position;
