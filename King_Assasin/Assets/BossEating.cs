@@ -83,7 +83,7 @@ public class BossSitting : MonoBehaviour
 
     private IEnumerator MoveBowlSequence()
     {
-        Quaternion targetRotation = Quaternion.Euler(-45f, -90f, 90f);
+        Quaternion targetRotation = Quaternion.Euler(-45f, -270f, 180f);
         yield return MoveToPositionAndRotation(BowlMovement, Waypoint.position, targetRotation, moveDuration);
         yield return new WaitForSeconds(stayDuration);
         yield return MoveToPositionAndRotation(BowlMovement, startingPosition, startingRotation, returnDuration);
