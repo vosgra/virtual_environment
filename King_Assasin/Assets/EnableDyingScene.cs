@@ -2,51 +2,46 @@ using UnityEngine;
 
 public class ObjectStateManager : MonoBehaviour
 {
-    public GameObject objectA; // The object that must remain enabled
-    public GameObject objectB; // The object that will be disabled after 19 seconds
-    public GameObject objectC; // The object that will be enabled after 19 seconds
+    public GameObject objectA; // First required object
+    public GameObject objectB; // Second required object
+    public GameObject objectC; // Object to enable when conditions are met
     private float timer = 0f;
-    public float timewait = 0f;
+    public float timewait = 19f;
     private bool isCounting = false;
 
     void Update()
     {
-        // Check if objectA is enabled
-        if (objectA != null)
+        // Ensure Object A and Object B are assigned
+        if (objectA == null || objectB == null || objectC == null)
         {
-            if (!objectA.activeSelf)
-            {
-                Debug.Log("Warning: objectA is disabled!");
-            }
+            Debug.LogWarning("One or more objects are not assigned in ObjectStateManager.");
+            return;
         }
 
-        // If objectB is enabled, start the countdown
-        if (objectB != null && objectB.activeSelf)
+        // Start countdown only if BOTH objectA and objectB are enabled
+        if (objectA.activeSelf && objectB.activeSelf)
         {
             if (!isCounting)
             {
                 isCounting = true;
-                timer = 0f; // Reset the timer when objectB gets enabled
+                timer = 0f; // Reset the timer when both objects are enabled
             }
 
             timer += Time.deltaTime;
 
-            // After 19 seconds, disable objectB and enable objectC
+            // If the countdown reaches the time limit, enable objectC and disable objectB
             if (timer >= timewait)
             {
                 objectB.SetActive(false);
-
-                if (objectC != null)
-                {
-                    objectC.SetActive(true);
-                }
-
+                objectC.SetActive(true);
                 isCounting = false; // Stop counting after switching objects
             }
         }
         else
         {
-            isCounting = false; // Reset countdown if objectB is disabled
+            // Reset countdown if either objectA or objectB is disabled
+            isCounting = false;
+            timer = 0f;
         }
     }
 }

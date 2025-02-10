@@ -16,30 +16,41 @@ public class TriggerObjectController : MonoBehaviour
     public KeyCode button1 = KeyCode.Alpha1;
     public KeyCode button2 = KeyCode.Alpha2;
 
+    [Header("Activation Condition")]
+    public GameObject requiredObject; // Object that must be active
+    public float activationDelay = 3f; // Time the object must be active before script works
+
     private bool playerInside = false;
     public GameObject player;
     public GameObject Cutscenetransition;
     public GameObject ui1;
     public GameObject ui2;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            uiObject.SetActive(true);
-            playerInside = true;
-            player.SetActive(false);
-            Cutscenetransition.SetActive(true);
-            ui1.SetActive(false);
-            ui2.SetActive(false);
-        }
-    }
-
-    
+    private float activationTimer = 0f;
+    private bool isActivated = false;
 
     private void Update()
     {
-        if (playerInside && (Input.GetKeyDown(button1) || Input.GetKeyDown(button2)))
+        // Check if required object is active and track time
+        if (requiredObject.activeSelf)
+        {
+            activationTimer += Time.deltaTime;
+
+            // If the required object has been active long enough, enable the script
+            if (activationTimer >= activationDelay)
+            {
+                isActivated = true;
+            }
+        }
+        else
+        {
+            // Reset the timer if the required object gets deactivated
+            activationTimer = 0f;
+            isActivated = false;
+        }
+
+        // Handle input if the player is inside and the script is activated
+        if (isActivated && playerInside && (Input.GetKeyDown(button1) || Input.GetKeyDown(button2)))
         {
             objectToEnable.SetActive(true);
 
@@ -47,6 +58,19 @@ public class TriggerObjectController : MonoBehaviour
             {
                 obj.SetActive(false);
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isActivated && other.CompareTag("Player")) // Only allow trigger if script is activated
+        {
+            uiObject.SetActive(true);
+            playerInside = true;
+            player.SetActive(false);
+            Cutscenetransition.SetActive(true);
+            ui1.SetActive(false);
+            ui2.SetActive(false);
         }
     }
 }

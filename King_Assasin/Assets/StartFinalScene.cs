@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class ScenarioSwitcher : MonoBehaviour
 {
@@ -14,8 +15,26 @@ public class ScenarioSwitcher : MonoBehaviour
     public GameObject[] scenario2Enable;
     public GameObject[] scenario2Disable;
 
+    [Header("Settings")]
+    public float delayBeforeActivation = 2f; // Adjustable delay in seconds
+
+    private bool isActivated = false;
+
+    void Start()
+    {
+        StartCoroutine(ActivateWithDelay());
+    }
+
+    IEnumerator ActivateWithDelay()
+    {
+        yield return new WaitForSeconds(delayBeforeActivation);
+        isActivated = true;
+    }
+
     void Update()
     {
+        if (!isActivated) return;
+
         if (scenario1Trigger.activeInHierarchy && !scenario2Trigger.activeInHierarchy)
         {
             ActivateScenario(scenario1Enable, scenario1Disable);
