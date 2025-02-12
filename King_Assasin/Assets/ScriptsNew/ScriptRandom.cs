@@ -14,6 +14,9 @@ public class NPCDialogueTrigger : MonoBehaviour
     private bool hasTriggered = false;
     private GameObject currentVoiceObject;
 
+
+
+
     void Update()
     {
         if (playerInRange && !hasTriggered && Input.GetKeyDown(KeyCode.E))

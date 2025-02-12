@@ -34,20 +34,9 @@ public class TriggerObjectController : MonoBehaviour
         // Check if required object is active and track time
         if (requiredObject.activeSelf)
         {
-            activationTimer += Time.deltaTime;
-
-            // If the required object has been active long enough, enable the script
-            if (activationTimer >= activationDelay)
-            {
-                isActivated = true;
-            }
+            isActivated = true;
         }
-        else
-        {
-            // Reset the timer if the required object gets deactivated
-            activationTimer = 0f;
-            isActivated = false;
-        }
+        
 
         // Handle input if the player is inside and the script is activated
         if (isActivated && playerInside && (Input.GetKeyDown(button1) || Input.GetKeyDown(button2)))
@@ -71,6 +60,7 @@ public class TriggerObjectController : MonoBehaviour
             Cutscenetransition.SetActive(true);
             ui1.SetActive(false);
             ui2.SetActive(false);
+            Cursor.lockState = CursorLockMode.Confined;
         }
     }
 }
